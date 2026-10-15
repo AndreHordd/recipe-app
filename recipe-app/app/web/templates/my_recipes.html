@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Мої рецепти · Кулінарні рецепти{% endblock %}
+{% block content %}
+<div class="page-heading"><h1>Мої рецепти</h1><a class="button" href="/recipes/new">Створити рецепт</a></div>
+<label for="status-filter">Стан рецепта</label>
+<select id="status-filter" class="list-filter"><option value="">Усі</option><option value="DRAFT">Чернетки</option><option value="PUBLISHED">Опубліковані</option><option value="HIDDEN">Приховані</option></select>
+<div id="recipe-list" class="recipe-grid" aria-live="polite"></div>
+<p id="list-status" role="status">Завантажуємо рецепти…</p>
+<div class="pagination"><button id="previous-page" type="button" hidden>Назад</button><span id="page-number"></span><button id="next-page" type="button" hidden>Далі</button></div>
+<p id="page-error" class="message error" role="alert" hidden></p>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/my_recipes.js') }}?v={{ request.app.version }}"></script>{% endblock %}

@@ -1,0 +1,48 @@
+@startuml
+title UML: публікація власного рецепта
+skinparam monochrome true
+skinparam shadowing false
+
+actor "Користувач" as user
+participant "Web Application" as web
+participant "API Facade" as api
+participant "AuthenticationService" as auth
+participant "RecipeService" as service
+participant "Recipe" as recipe
+participant "PostgreSQLRecipeRepository" as repo
+database "PostgreSQL" as db
+
+user -> web : Публікувати
+web -> api : POST /api/recipes/{id}/publish\n{version}, cookie, Origin, X-CSRF-Token
+api -> auth : Перевірити сесію, активність і CSRF
+auth --> api : Поточний користувач
+api -> service : publish(actor, id, version)
+service -> db : BEGIN через transaction context
+service -> repo : find_by_id(id)
+repo -> db : SELECT рецепт і складові
+db --> repo : Поточний рецепт
+repo --> service : Recipe
+service -> service : Перевірити власника та версію
+service -> recipe : publish()
+recipe -> recipe : Перевірити DRAFT і повноту
+recipe --> service : Стан PUBLISHED
+service -> repo : save(recipe, expected_version)
+repo -> db : UPDATE ... WHERE id=? AND version=?\nversion = version + 1
+
+alt Версія збігається і запис успішний
+  db --> repo : Оновлено 1 рядок
+  repo -> db : Зберегти складові рецепта
+  repo --> service : id і нова version в об'єкті
+  service -> db : COMMIT
+  service --> api : Recipe
+  api --> web : 200 RecipeRead
+  web --> user : Рецепт опубліковано
+else Паралельна зміна або помилка збереження
+  db --> repo : 0 рядків або SQL-помилка
+  repo --> service : Помилка
+  service -> db : ROLLBACK
+  service --> api : VERSION_CONFLICT або помилка запису
+  api --> web : 409 або відповідний код помилки
+  web --> user : Повідомлення про помилку
+end
+@enduml

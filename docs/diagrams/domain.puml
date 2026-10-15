@@ -1,0 +1,88 @@
+@startuml
+title UML: предметна область
+skinparam monochrome true
+skinparam shadowing false
+hide empty members
+
+enum UserRole {
+  USER
+  ADMIN
+}
+enum RecipeStatus {
+  DRAFT
+  PUBLISHED
+  HIDDEN
+}
+class User {
+  - id: int
+  - email: str
+  - display_name: str
+  - role: UserRole
+  - is_active: bool
+  + has_role(role): bool
+}
+class Recipe {
+  - id: int | None
+  - author_id: int
+  - title: str
+  - description: str
+  - cooking_time: int | None
+  - servings: int
+  - category_id: int | None
+  - status: RecipeStatus
+  - version: int
+  - hide_reason: str | None
+  + update_details(data)
+  + add_ingredient(item)
+  + add_step(step)
+  + publish()
+  + unpublish()
+  + hide(reason)
+  + restore_to_draft()
+}
+class RecipeIngredient {
+  - ingredient_id: int
+  - position: int
+  - quantity: Decimal
+  - unit: str
+}
+class Ingredient {
+  - id: int
+  - name: str
+}
+class InstructionStep {
+  - number: int
+  - description: str
+}
+class Category {
+  - id: int
+  - name: str
+}
+class Tag {
+  - id: int
+  - name: str
+}
+class Collection {
+  - id: int
+  - owner_id: int
+  - name: str
+  + add_recipe(recipe_id)
+  + remove_recipe(recipe_id)
+}
+class CollectionEntry {
+  - recipe_id: int
+  - saved_at: datetime
+}
+
+User --> UserRole
+Recipe --> RecipeStatus
+User "1" -- "0..*" Recipe : автор
+User "1" -- "0..*" Collection : власник
+Recipe "1" *-- "0..50" RecipeIngredient
+RecipeIngredient "0..*" --> "1" Ingredient
+Recipe "1" *-- "0..50" InstructionStep
+Recipe "0..*" --> "0..1" Category
+Recipe "0..*" -- "0..10" Tag
+Collection "1" *-- "0..*" CollectionEntry
+CollectionEntry "0..*" --> "1" Recipe : посилання
+@enduml

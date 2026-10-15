@@ -1,0 +1,13 @@
+Розробити остаточний варіант архітектурний дизайн -модель С4 model (+ або UML). 
+
+https://www.plantuml.com/plantuml/uml/
+
+https://playground.structurizr.com/
+
+Врахувати:
+
+- принципи ООП
+
+- SOLID
+
+- патерни 

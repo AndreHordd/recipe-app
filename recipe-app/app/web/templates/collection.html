@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Колекція · Кулінарні рецепти{% endblock %}
+{% block content %}
+<p id="page-error" class="message error" role="alert" hidden></p>
+<p id="collection-loading" role="status">Завантажуємо колекцію…</p>
+<section id="collection-content" data-collection-id="{{ collection_id }}" hidden>
+  <div class="page-heading"><h1 id="collection-title"></h1><a href="/collections">Усі мої колекції</a></div>
+  <form id="collection-rename" class="panel" method="post">
+    <div class="inline-form">
+      <div><label for="collection-name">Назва колекції</label><input id="collection-name" name="name" maxlength="100" required></div>
+      <button type="submit">Зберегти назву</button>
+    </div>
+    <p id="form-error" class="message error" role="alert" hidden></p>
+    <p id="form-success" class="message success" role="status" hidden></p>
+  </form>
+  <div id="recipe-list" class="recipe-grid" aria-live="polite"></div>
+  <p id="list-status" role="status">Завантажуємо рецепти…</p>
+  <div class="pagination"><button id="previous-page" type="button" hidden>Назад</button><span id="page-number"></span><button id="next-page" type="button" hidden>Далі</button></div>
+  <div class="actions collection-actions"><a class="button" href="/">Знайти рецепти</a><button id="delete-collection" class="danger" type="button">Видалити колекцію</button></div>
+</section>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/collection.js') }}?v={{ request.app.version }}"></script>{% endblock %}

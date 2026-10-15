@@ -1,0 +1,10 @@
+.venv/
+.local/
+uploads/
+.env
+.idea/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+*.log

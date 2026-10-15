@@ -1,0 +1,15 @@
+@startuml
+title C4 Level 1: контекст системи
+left to right direction
+skinparam monochrome true
+skinparam shadowing false
+
+actor "Гість\nПереглядає публічні рецепти" as guest <<Person>>
+actor "Користувач\nСтворює рецепти та колекції" as user <<Person>>
+actor "Адміністратор\nМодерує рецепти та довідники" as admin <<Person>>
+rectangle "Система організації\nкулінарних рецептів\n\nЗберігання, пошук, публікація\nі впорядкування рецептів" as system <<Software System>>
+
+guest --> system : Переглядає і шукає
+user --> system : Працює зі своїми\nрецептами та колекціями
+admin --> system : Модерує та керує
+@enduml

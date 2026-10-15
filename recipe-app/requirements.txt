@@ -1,0 +1,10 @@
+# Перевірені залежності виконання. Повний набір версій — requirements.lock.
+fastapi==0.142.2
+uvicorn==0.54.0
+psycopg[binary]==3.3.6
+pydantic==2.13.5
+pydantic-settings==2.15.0
+jinja2==3.1.6
+pwdlib[argon2]==0.3.1
+email-validator==2.3.0
+pillow==12.3.0

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Адміністрування · Кулінарні рецепти{% endblock %}
+{% block content %}
+<h1>Адміністрування</h1>
+<p id="page-error" class="message error" role="alert" hidden></p>
+<p id="admin-loading" role="status">Перевіряємо доступ…</p>
+<section id="admin-content" hidden>
+  <div class="admin-tabs" role="tablist" aria-label="Розділи адміністрування">
+    <button id="recipes-tab" role="tab" aria-controls="recipes-panel" aria-selected="true" type="button" data-tab="recipes">Рецепти</button>
+    <button id="users-tab" role="tab" aria-controls="users-panel" aria-selected="false" tabindex="-1" type="button" data-tab="users">Користувачі</button>
+    <button id="catalog-tab" role="tab" aria-controls="catalog-panel" aria-selected="false" tabindex="-1" type="button" data-tab="catalog">Категорії й теги</button>
+  </div>
+  <section id="recipes-panel" role="tabpanel" aria-labelledby="recipes-tab">
+    <h2>Модерація рецептів</h2>
+    <p class="muted">Приховайте опублікований рецепт із поясненням. Повернення прихованого рецепта створює чернетку, яку публікує автор.</p>
+    <form id="admin-recipe-filter" class="panel">
+      <div class="form-columns">
+        <div><label for="admin-recipe-q">Назва рецепта</label><input id="admin-recipe-q" name="q" maxlength="100"></div>
+        <div><label for="admin-recipe-status">Стан рецепта</label><select id="admin-recipe-status" name="status"><option value="">Усі стани</option><option value="PUBLISHED">Опубліковано</option><option value="DRAFT">Чернетка</option><option value="HIDDEN">Приховано</option></select></div>
+        <div><label for="admin-recipe-author">ID автора</label><input id="admin-recipe-author" name="author_id" type="number" min="1" step="1"></div>
+      </div>
+      <button type="submit">Знайти рецепти</button>
+    </form>
+    <p id="recipe-feedback" class="message success" role="status" hidden></p>
+    <p id="recipe-error" class="message error" role="alert" hidden></p>
+    <div id="admin-recipe-list" class="recipe-grid" aria-live="polite"></div>
+    <p id="recipe-list-status" role="status"></p>
+    <div class="pagination"><button id="recipe-previous" type="button" hidden>Попередні рецепти</button><span id="recipe-page"></span><button id="recipe-next" type="button" hidden>Наступні рецепти</button></div>
+  </section>
+  <section id="users-panel" role="tabpanel" aria-labelledby="users-tab" hidden>
+    <h2>Користувачі</h2>
+    <p class="muted">Блокування завершує всі сесії користувача. Опубліковані рецепти залишаються в каталозі. Адміністраторів блокувати не можна.</p>
+    <form id="admin-user-filter" class="panel inline-form"><div><label for="admin-user-q">Електронна адреса або ім’я</label><input id="admin-user-q" name="q" maxlength="100"></div><button type="submit">Знайти користувачів</button></form>
+    <p id="user-feedback" class="message success" role="status" hidden></p>
+    <p id="user-error" class="message error" role="alert" hidden></p>
+    <div id="admin-user-list" class="recipe-grid" aria-live="polite"></div>
+    <p id="user-list-status" role="status"></p>
+    <div class="pagination"><button id="user-previous" type="button" hidden>Попередні користувачі</button><span id="user-page"></span><button id="user-next" type="button" hidden>Наступні користувачі</button></div>
+  </section>
+  <section id="catalog-panel" role="tabpanel" aria-labelledby="catalog-tab" hidden>
+    <h2>Категорії й теги</h2>
+    <p class="muted">Назва має містити 1–80 символів. Запис, що використовується в рецептах, можна перейменувати; видалення доступне після вилучення всіх посилань.</p>
+    <p id="catalog-feedback" class="message success" role="status" hidden></p>
+    <p id="catalog-error" class="message error" role="alert" hidden></p>
+    <div class="recipe-grid">
+      <section class="panel"><h3>Категорії</h3><form id="create-category" class="inline-form"><div><label for="new-category">Нова категорія</label><input id="new-category" name="name" maxlength="80" required></div><button type="submit">Додати категорію</button></form><div id="category-list" class="catalog-list"></div></section>
+      <section class="panel"><h3>Теги</h3><form id="create-tag" class="inline-form"><div><label for="new-tag">Новий тег</label><input id="new-tag" name="name" maxlength="80" required></div><button type="submit">Додати тег</button></form><div id="tag-list" class="catalog-list"></div></section>
+    </div>
+  </section>
+</section>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/admin.js') }}?v={{ request.app.version }}"></script>{% endblock %}

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Кулінарні рецепти{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}?v={{ request.app.version }}">
+  <script type="importmap">
+    {"imports": {
+      "/static/js/api.js": "{{ url_for('static', path='/js/api.js') }}?v={{ request.app.version }}",
+      "/static/js/auth.js": "{{ url_for('static', path='/js/auth.js') }}?v={{ request.app.version }}",
+      "/static/js/ui.js": "{{ url_for('static', path='/js/ui.js') }}?v={{ request.app.version }}"
+    }}
+  </script>
+  <script type="module" src="{{ url_for('static', path='/js/auth.js') }}?v={{ request.app.version }}"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="/">Кулінарні рецепти</a>
+      <nav aria-label="Основна навігація">
+        <a href="/">Каталог</a>
+        <span id="guest-navigation" hidden>
+          <a href="/login">Увійти</a>
+          <a href="/register">Реєстрація</a>
+        </span>
+        <span id="user-navigation" hidden>
+          <a href="/my-recipes">Мої рецепти</a>
+          <a href="/collections">Колекції</a>
+          <a href="/recipes/new">Новий рецепт</a>
+          <a id="admin-navigation" href="/admin" hidden>Адміністрування</a>
+          <span id="navigation-name"></span>
+          <button id="logout-button" class="text-button" type="button">Вийти</button>
+        </span>
+      </nav>
+    </div>
+  </header>
+  <main class="container">{% block content %}{% endblock %}</main>
+  <footer class="container">Навчальний проєкт · Система організації кулінарних рецептів</footer>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

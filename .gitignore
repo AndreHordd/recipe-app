@@ -1,0 +1,21 @@
+# Local environments, credentials and application data
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.local/
+uploads/
+.idea/
+.vscode/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.py[cod]
+*.log
+
+# Temporary document rendering and course lecture slides
+/.architecture-docx/
+/.lab2-work/
+/Lek*.ppt
+~$*

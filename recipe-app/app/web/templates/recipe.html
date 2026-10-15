@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<p id="page-error" class="message error" role="alert" hidden></p>
+<p id="recipe-loading" role="status">Завантажуємо рецепт…</p>
+<article id="recipe-content" class="panel recipe-detail" data-recipe-id="{{ recipe_id }}" hidden>
+  <h1 id="recipe-title"></h1>
+  <p id="recipe-meta" class="muted"></p>
+  <p id="hide-reason" class="message error" hidden></p>
+  <img id="recipe-photo" class="recipe-photo" alt="" hidden>
+  <p id="recipe-description" class="description"></p>
+  <p id="recipe-tags" class="muted"></p>
+  <h2>Інгредієнти</h2><ul id="recipe-ingredients"></ul>
+  <h2>Приготування</h2><ol id="recipe-steps" class="steps"></ol>
+  <div id="recipe-actions" class="actions" hidden>
+    <a id="edit-recipe" class="button" href="/">Редагувати</a>
+    <button id="publish-recipe" type="button" hidden>Опублікувати</button>
+    <button id="unpublish-recipe" class="secondary" type="button" hidden>Зняти з публікації</button>
+    <button id="delete-recipe" class="danger" type="button">Видалити</button>
+  </div>
+  <p id="save-login-hint" class="muted" hidden><a href="/login">Увійдіть</a>, щоб зберегти рецепт у колекцію.</p>
+  <section id="save-collection-panel" class="save-panel" hidden>
+    <h2>Зберегти в колекцію</h2>
+    <form id="save-collection-form" method="post">
+      <div class="inline-form">
+        <div><label for="save-collection">Моя колекція</label><select id="save-collection" required><option value="">Оберіть колекцію</option></select></div>
+        <button id="save-to-collection" type="submit" disabled>Додати до колекції</button>
+      </div>
+    </form>
+    <p id="collection-choice-status" class="muted" role="status">Завантажуємо колекції…</p>
+    <p id="save-collection-error" class="message error" role="alert" hidden></p>
+    <p id="save-collection-success" class="message success" role="status" hidden></p>
+    <a href="/collections">Мої колекції</a>
+  </section>
+</article>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/recipe.js') }}?v={{ request.app.version }}"></script>{% endblock %}

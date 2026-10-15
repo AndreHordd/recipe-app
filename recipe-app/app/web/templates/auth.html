@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% set registering = mode == 'register' %}
+{% block title %}{{ 'Реєстрація' if registering else 'Вхід' }} · Кулінарні рецепти{% endblock %}
+{% block content %}
+<section class="panel auth-panel">
+  <h1>{{ 'Створити обліковий запис' if registering else 'Увійти' }}</h1>
+  <form id="auth-form" method="post" data-mode="{{ mode }}">
+    {% if registering %}
+    <label for="display-name">Ім’я</label>
+    <input id="display-name" name="display_name" autocomplete="name" maxlength="80" required>
+    {% endif %}
+    <label for="email">{{ 'Електронна адреса' if registering else 'Електронна адреса або логін' }}</label>
+    <input id="email" name="email" type="{{ 'email' if registering else 'text' }}" autocomplete="{{ 'email' if registering else 'username' }}" maxlength="254" required>
+    <label for="password">Пароль</label>
+    <input id="password" name="password" type="password" autocomplete="{{ 'new-password' if registering else 'current-password' }}" minlength="{{ 8 if registering else 1 }}" maxlength="128"{% if registering %} aria-describedby="password-hint"{% endif %} required>
+    {% if registering %}<p id="password-hint" class="hint">Від 8 до 128 символів.</p>{% endif %}
+    <p id="form-error" class="message error" role="alert" hidden></p>
+    <p id="form-success" class="message success" role="status" hidden></p>
+    <button type="submit">{{ 'Зареєструватися' if registering else 'Увійти' }}</button>
+  </form>
+  <p class="form-link">{% if registering %}Уже маєте обліковий запис? <a href="/login">Увійти</a>{% else %}Ще не зареєстровані? <a href="/register">Створити обліковий запис</a>{% endif %}</p>
+</section>
+<p id="page-error" class="message error" role="alert" hidden></p>
+{% endblock %}

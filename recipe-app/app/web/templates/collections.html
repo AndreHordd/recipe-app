@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Мої колекції · Кулінарні рецепти{% endblock %}
+{% block content %}
+<h1>Мої колекції</h1>
+<p class="muted">Зберігайте рецепти у власні добірки. Додавання доступне на сторінці опублікованого рецепта.</p>
+<form id="collection-create" class="panel" method="post" hidden>
+  <div class="inline-form">
+    <div><label for="new-collection-name">Назва нової колекції</label><input id="new-collection-name" name="name" maxlength="100" required></div>
+    <button type="submit">Створити колекцію</button>
+  </div>
+  <p id="form-error" class="message error" role="alert" hidden></p>
+</form>
+<div id="collection-list" class="recipe-grid" aria-live="polite"></div>
+<p id="list-status" role="status">Завантажуємо колекції…</p>
+<div class="pagination"><button id="previous-page" type="button" hidden>Назад</button><span id="page-number"></span><button id="next-page" type="button" hidden>Далі</button></div>
+<p id="page-error" class="message error" role="alert" hidden></p>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/collections.js') }}?v={{ request.app.version }}"></script>{% endblock %}

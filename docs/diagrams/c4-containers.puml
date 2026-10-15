@@ -1,0 +1,18 @@
+@startuml
+title C4 Level 2: контейнери
+left to right direction
+skinparam monochrome true
+skinparam shadowing false
+
+actor "Гість / користувач /\nадміністратор" as person <<Person>>
+package "Система організації кулінарних рецептів" {
+  rectangle "Web Application\n[HTML / CSS / JavaScript]\n\nІнтерфейс у браузері" as web <<Container>>
+  rectangle "Backend API\n[Python / FastAPI]\n\nСервіси, доступ, JSON API,\nHTML-шаблони та статичні файли" as api <<Container>>
+  database "Database\n[PostgreSQL 17]\n\nРецепти, користувачі,\nсесії, колекції, довідники" as db <<Container>>
+}
+
+person --> web : Використовує
+web --> api : JSON API\nHTTP локально / HTTPS при розміщенні
+api --> web : Віддає HTML, CSS, JS
+api --> db : SQL через psycopg\nTLS при віддаленому з'єднанні
+@enduml

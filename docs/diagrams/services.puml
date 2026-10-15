@@ -1,0 +1,65 @@
+@startuml
+title UML: сервіси рецептів, контракти та Strategy
+skinparam monochrome true
+skinparam shadowing false
+hide empty members
+
+interface IRecipeReader {
+  + find_by_id(recipe_id): Recipe | None
+  + find(criteria: RecipeQuery): list[Recipe]
+}
+interface IRecipeWriter {
+  + save(recipe, expected_version): None
+  + delete(recipe_id, expected_version): None
+}
+class PostgreSQLRecipeRepository {
+  - connection
+  + find_by_id(recipe_id): Recipe | None
+  + find(criteria: RecipeQuery): list[Recipe]
+  + save(recipe, expected_version): None
+  + delete(recipe_id, expected_version): None
+}
+class RecipeService {
+  - reader: IRecipeReader
+  - writer: IRecipeWriter
+  - transaction: Callable
+  + create(actor, data): Recipe
+  + get_visible(actor, recipe_id): Recipe
+  + list_owned(actor, criteria): list[Recipe]
+  + update(actor, recipe_id, data): Recipe
+  + publish(actor, recipe_id, version): Recipe
+  + unpublish(actor, recipe_id, version): Recipe
+  + delete(actor, recipe_id, version): None
+}
+interface SearchStrategy {
+  + search(criteria: SearchCriteria): list[Recipe]
+}
+abstract class BaseSearchStrategy {
+  # reader: IRecipeReader
+  {abstract} + search(criteria: SearchCriteria): list[Recipe]
+}
+class SearchByTitleStrategy {
+  + search(criteria): list[Recipe]
+}
+class SearchByIngredientStrategy {
+  + search(criteria): list[Recipe]
+}
+class SearchByCategoryStrategy {
+  + search(criteria): list[Recipe]
+}
+class RecipeSearchService {
+  - strategy: SearchStrategy
+  + search(criteria: SearchCriteria): list[Recipe]
+}
+
+RecipeService ..> IRecipeReader
+RecipeService ..> IRecipeWriter
+PostgreSQLRecipeRepository ..|> IRecipeReader
+PostgreSQLRecipeRepository ..|> IRecipeWriter
+RecipeSearchService ..> SearchStrategy
+BaseSearchStrategy ..|> SearchStrategy
+BaseSearchStrategy ..> IRecipeReader
+SearchByTitleStrategy --|> BaseSearchStrategy
+SearchByIngredientStrategy --|> BaseSearchStrategy
+SearchByCategoryStrategy --|> BaseSearchStrategy
+@enduml

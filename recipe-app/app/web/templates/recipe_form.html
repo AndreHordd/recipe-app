@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Редагувати' if recipe_id else 'Новий' }} рецепт · Кулінарні рецепти{% endblock %}
+{% block content %}
+<h1>{{ 'Редагувати рецепт' if recipe_id else 'Новий рецепт' }}</h1>
+<p id="page-error" class="message error" role="alert" hidden></p>
+<p id="form-loading" role="status">Завантажуємо форму…</p>
+<form id="recipe-form" class="panel" method="post" data-recipe-id="{{ recipe_id or '' }}" hidden>
+  <label for="recipe-title">Назва</label><input id="recipe-title" name="title" maxlength="150" required>
+  <label for="recipe-description">Опис</label><textarea id="recipe-description" name="description" maxlength="3000" rows="3"></textarea>
+  <div class="form-columns">
+    <div><label for="cooking-time">Час, хвилини</label><input id="cooking-time" name="cooking_time" type="number" min="1" max="1440" step="1"></div>
+    <div><label for="servings">Порції</label><input id="servings" name="servings" type="number" value="1" min="1" max="100" step="1" required></div>
+    <div><label for="category">Категорія</label><select id="category" name="category_id"><option value="">Без категорії</option></select></div>
+  </div>
+  <fieldset><legend>Теги</legend><div id="tag-options" class="tag-options"></div></fieldset>
+  <fieldset><legend>Фотографія</legend>
+    <p id="photo-help" class="muted">Одне основне фото: JPEG, PNG або WebP до 5 МБ та 20 мегапікселів. Фото необов’язкове. Зміна фото опублікованого рецепта поверне його до чернетки.</p>
+    <img id="photo-preview" class="photo-preview" alt="Попередній перегляд фотографії рецепта" hidden>
+    <label for="photo-file">Оберіть фотографію</label><input id="photo-file" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="photo-help">
+    <p id="photo-choice" class="muted" role="status">Фотографії ще немає.</p>
+    <div class="actions">
+      <button id="upload-photo" class="secondary" type="button" hidden>Завантажити фото</button>
+      <button id="cancel-photo" class="secondary" type="button" hidden>Скасувати вибір фото</button>
+      <button id="delete-photo" class="danger" type="button" hidden>Видалити фото</button>
+    </div>
+    <p id="photo-error" class="message error" role="alert" hidden></p>
+    <p id="photo-message" class="message success" role="status" hidden></p>
+  </fieldset>
+  <fieldset><legend>Інгредієнти</legend>
+    <p class="muted">Оберіть назву з підказок або введіть нову. Кількість — до трьох десяткових знаків.</p>
+    <datalist id="ingredient-options"></datalist><div id="ingredient-rows"></div>
+    <button id="add-ingredient" class="secondary" type="button">Додати інгредієнт</button>
+  </fieldset>
+  <fieldset><legend>Кроки приготування</legend><div id="step-rows"></div><button id="add-step" class="secondary" type="button">Додати крок</button></fieldset>
+  <p id="form-error" class="message error" role="alert" hidden></p>
+  <p id="state-hint" class="muted">Можна зберегти неповну чернетку. Публікація доступна на сторінці готового рецепта.</p>
+  <div class="actions"><button id="save-recipe" type="submit">Зберегти чернетку</button><a href="/my-recipes">Скасувати</a><button id="reload-recipe" class="secondary" type="button" hidden>Завантажити актуальну версію</button></div>
+</form>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/recipe_form.js') }}?v={{ request.app.version }}"></script>{% endblock %}
