@@ -32,6 +32,8 @@ function renderPhoto() {
   document.getElementById("upload-photo").hidden = !recipeId || !selectedPhoto;
   document.getElementById("cancel-photo").hidden = !selectedPhoto;
   document.getElementById("delete-photo").hidden = !savedPhoto;
+  const fileName = document.getElementById("photo-file-name");
+  if (fileName) fileName.textContent = "Файл ще не обрано · JPG, PNG або WebP";
   message("photo-choice", selectedPhoto
     ? "Нове фото обрано. Воно завантажиться після збереження рецепта або кнопкою «Завантажити фото»."
     : savedPhoto ? "Поточна фотографія рецепта." : "Фотографії ще немає.");
@@ -72,6 +74,8 @@ async function uploadChosenPhoto() {
 
 photoFile.addEventListener("change", () => {
   const file = photoFile.files[0];
+  const fileName = document.getElementById("photo-file-name");
+  if (fileName) fileName.textContent = file ? file.name : "Файл ще не обрано · JPG, PNG або WebP";
   clearPhotoChoice(false); message("photo-error", ""); message("photo-message", "");
   if (file && file.size > 5 * 1024 * 1024) message("photo-error", "Розмір фотографії має бути не більшим за 5 МБ.");
   else if (file && file.type && !["image/jpeg", "image/png", "image/webp"].includes(file.type)) {

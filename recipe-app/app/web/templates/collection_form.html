@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Нова колекція · Смакові нотатки{% endblock %}
+{% block content %}
+<section class="auth-panel panel collection-form-panel">
+  <p class="eyebrow">Твоя добірка</p>
+  <h1>Створити колекцію</h1>
+  <p class="muted">Задай назву — додавати рецепти можна буде на сторінці кожної опублікованої страви.</p>
+  <form id="collection-create" method="post">
+    <label for="new-collection-name">Назва колекції</label>
+    <input id="new-collection-name" name="name" maxlength="100" placeholder="Наприклад, Швидкі вечері" required>
+    <p id="form-error" class="message error" role="alert" hidden></p>
+    <div class="actions"><button type="submit">Створити колекцію</button><a href="/collections">Скасувати</a></div>
+  </form>
+</section>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/collection_form.js') }}?v={{ request.app.version }}"></script>{% endblock %}

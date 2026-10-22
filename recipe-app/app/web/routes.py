@@ -14,6 +14,16 @@ def home(request: Request):
     return templates.TemplateResponse(request=request, name="home.html")
 
 
+@router.get("/recipes")
+def catalog(request: Request):
+    return templates.TemplateResponse(request=request, name="catalog.html")
+
+
+@router.get("/account")
+def account(request: Request):
+    return templates.TemplateResponse(request=request, name="account.html")
+
+
 @router.get("/login")
 def login(request: Request):
     return templates.TemplateResponse(request=request, name="auth.html", context={"mode": "login"})
@@ -55,6 +65,11 @@ def recipe(request: Request, recipe_id: Annotated[int, Path(gt=0)]):
 @router.get("/collections")
 def collections(request: Request):
     return templates.TemplateResponse(request=request, name="collections.html")
+
+
+@router.get("/collections/new")
+def new_collection(request: Request):
+    return templates.TemplateResponse(request=request, name="collection_form.html")
 
 
 @router.get("/admin")

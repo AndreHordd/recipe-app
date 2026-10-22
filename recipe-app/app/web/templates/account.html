@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Мій акаунт · Смакові нотатки{% endblock %}
+{% block content %}
+<section id="guest-account" class="account-guest" hidden>
+  <p class="eyebrow">Особистий простір</p><h1>Увійди, щоб керувати своїми рецептами</h1>
+  <p>Тут зберігатимуться твої рецепти, колекції та кулінарні плани.</p>
+  <a class="button" href="/login">Увійти в акаунт</a>
+</section>
+<section id="user-account" hidden>
+  <div class="account-header">
+    <div><p class="eyebrow">Особистий простір</p><h1>Мій акаунт</h1><p class="muted">Керуй рецептами та колекціями в одному місці.</p></div>
+    <div class="profile-card"><span class="profile-avatar" aria-hidden="true">СН</span><div><strong id="account-name"></strong><span id="account-email"></span></div></div>
+  </div>
+  <div class="account-grid">
+    <a class="account-card" href="/my-recipes"><span class="account-card-index">01</span><strong>Мої рецепти</strong><span>Створюй, редагуй і публікуй власні страви.</span><b>Відкрити →</b></a>
+    <a class="account-card" href="/collections"><span class="account-card-index">02</span><strong>Мої колекції</strong><span>Збирай рецепти для будь-якого настрою чи події.</span><b>Переглянути →</b></a>
+    <a class="account-card account-card-accent" href="/recipes/new"><span class="account-card-index">03</span><strong>Новий рецепт</strong><span>Збережи свою ідею, щоб повернутися до неї пізніше.</span><b>Створити →</b></a>
+  </div>
+</section>
+<p id="page-error" class="message error" role="alert" hidden></p>
+{% endblock %}

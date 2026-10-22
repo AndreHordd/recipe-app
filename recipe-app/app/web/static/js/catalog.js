@@ -56,7 +56,7 @@ function saveUrl() {
   if (query.get("mode") === "title") query.delete("mode");
   if (query.get("sort") === "newest") query.delete("sort");
   if (page > 1) query.set("page", page);
-  const url = query.size ? `/?${query}` : "/";
+  const url = query.size ? `/recipes?${query}` : "/recipes";
   if (url !== `${window.location.pathname}${window.location.search}`) window.history.pushState(null, "", url);
 }
 

@@ -34,7 +34,7 @@ async function load() {
   }
 }
 
-form.addEventListener("submit", async event => {
+if (form) form.addEventListener("submit", async event => {
   event.preventDefault();
   message("form-error", "");
   const button = form.querySelector('button[type="submit"]');
@@ -52,4 +52,4 @@ document.getElementById("next-page").addEventListener("click", () => { page++; l
 
 const session = await sessionReady;
 if (session === null) window.location.assign("/login");
-else if (session) { form.hidden = false; load(); }
+else if (session) { if (form) form.hidden = false; load(); }

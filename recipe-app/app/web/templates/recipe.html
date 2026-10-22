@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %}Рецепт · Смакові нотатки{% endblock %}
 {% block content %}
 <p id="page-error" class="message error" role="alert" hidden></p>
 <p id="recipe-loading" role="status">Завантажуємо рецепт…</p>
@@ -29,7 +30,6 @@
     <p id="collection-choice-status" class="muted" role="status">Завантажуємо колекції…</p>
     <p id="save-collection-error" class="message error" role="alert" hidden></p>
     <p id="save-collection-success" class="message success" role="status" hidden></p>
-    <a href="/collections">Мої колекції</a>
   </section>
 </article>
 {% endblock %}

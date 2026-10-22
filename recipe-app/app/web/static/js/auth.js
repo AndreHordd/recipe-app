@@ -20,14 +20,12 @@ function renderSession(session) {
     document.getElementById("account-name").textContent = session?.user.display_name || "";
     document.getElementById("account-email").textContent = session?.user.email || "";
   }
-  showMessage("session-status", session ? "Ви увійшли до облікового запису." : "");
 }
 
 export const sessionReady = loadSession().then(session => {
   renderSession(session);
   return session;
 }).catch(error => {
-  showMessage("session-status", "Не вдалося перевірити обліковий запис.");
   showMessage("page-error", error.message);
   document.getElementById("guest-navigation").hidden = false;
 });

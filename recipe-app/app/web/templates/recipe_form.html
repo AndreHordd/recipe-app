@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ 'Редагувати' if recipe_id else 'Новий' }} рецепт · Кулінарні рецепти{% endblock %}
+{% block title %}{{ 'Редагувати' if recipe_id else 'Новий' }} рецепт · Смакові нотатки{% endblock %}
 {% block content %}
 <h1>{{ 'Редагувати рецепт' if recipe_id else 'Новий рецепт' }}</h1>
 <p id="page-error" class="message error" role="alert" hidden></p>
@@ -16,7 +16,14 @@
   <fieldset><legend>Фотографія</legend>
     <p id="photo-help" class="muted">Одне основне фото: JPEG, PNG або WebP до 5 МБ та 20 мегапікселів. Фото необов’язкове. Зміна фото опублікованого рецепта поверне його до чернетки.</p>
     <img id="photo-preview" class="photo-preview" alt="Попередній перегляд фотографії рецепта" hidden>
-    <label for="photo-file">Оберіть фотографію</label><input id="photo-file" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="photo-help">
+    <div class="file-picker">
+      <input id="photo-file" class="file-input" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="photo-help">
+      <label class="file-picker-label" for="photo-file">
+        <span class="file-picker-mark" aria-hidden="true">Фото</span>
+        <span class="file-picker-copy"><strong>Додай фото страви</strong><small id="photo-file-name">Файл ще не обрано · JPG, PNG або WebP</small></span>
+        <span class="file-picker-button">Обрати файл</span>
+      </label>
+    </div>
     <p id="photo-choice" class="muted" role="status">Фотографії ще немає.</p>
     <div class="actions">
       <button id="upload-photo" class="secondary" type="button" hidden>Завантажити фото</button>

@@ -1,15 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Мої колекції · Кулінарні рецепти{% endblock %}
+{% block title %}Мої колекції · Смакові нотатки{% endblock %}
 {% block content %}
-<h1>Мої колекції</h1>
-<p class="muted">Зберігайте рецепти у власні добірки. Додавання доступне на сторінці опублікованого рецепта.</p>
-<form id="collection-create" class="panel" method="post" hidden>
-  <div class="inline-form">
-    <div><label for="new-collection-name">Назва нової колекції</label><input id="new-collection-name" name="name" maxlength="100" required></div>
-    <button type="submit">Створити колекцію</button>
-  </div>
-  <p id="form-error" class="message error" role="alert" hidden></p>
-</form>
+<div class="page-heading"><div><p class="eyebrow">Твої добірки</p><h1>Мої колекції</h1><p class="muted">Зберігай рецепти у власні добірки для будь-якого настрою.</p></div><a class="button" href="/collections/new">+ Нова колекція</a></div>
 <div id="collection-list" class="recipe-grid" aria-live="polite"></div>
 <p id="list-status" role="status">Завантажуємо колекції…</p>
 <div class="pagination"><button id="previous-page" type="button" hidden>Назад</button><span id="page-number"></span><button id="next-page" type="button" hidden>Далі</button></div>

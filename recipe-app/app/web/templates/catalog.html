@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Усі рецепти · Смакові нотатки{% endblock %}
+{% block content %}
+<section class="page-intro compact-intro">
+  <p class="eyebrow">Бібліотека смаків</p>
+  <h1>Усі рецепти</h1>
+  <p>Знаходь потрібну страву за назвою, інгредієнтами або категорією.</p>
+</section>
+<form id="search-form" class="panel search-form" method="get">
+  <div class="search-form-heading"><div><h2>Знайти рецепт</h2><p class="muted">Поєднуй фільтри, щоб швидше знайти те, що хочеться сьогодні.</p></div><span class="search-badge">Пошук</span></div>
+  <div class="form-columns">
+    <div><label for="search-mode">Шукати за</label><select id="search-mode" name="mode"><option value="title">Назвою рецепта</option><option value="ingredient">Інгредієнтом</option><option value="category">Категорією</option></select></div>
+    <div><label id="search-text-label" for="search-text">Назва рецепта</label><input id="search-text" name="q" maxlength="100" aria-describedby="search-hint" placeholder="Наприклад, паста або сирники"></div>
+    <div><label for="search-category">Категорія</label><select id="search-category" name="category_id"><option value="">Усі категорії</option></select></div>
+    <div><label for="search-tag">Тег</label><select id="search-tag" name="tag_id"><option value="">Усі теги</option></select></div>
+    <div><label for="search-time">До хвилин</label><input id="search-time" name="max_cooking_time" type="number" min="1" max="1440" step="1" placeholder="Будь-який час"></div>
+    <div><label for="search-sort">Сортувати</label><select id="search-sort" name="sort"><option value="newest">Спочатку нові</option><option value="title">За назвою</option></select></div>
+  </div>
+  <p id="search-hint" class="muted search-hint">Пошук враховує всі вибрані умови одночасно.</p>
+  <div class="actions"><button id="search-submit" type="submit" disabled>Показати рецепти</button><button id="reset-search" class="secondary" type="button">Скинути фільтри</button></div>
+</form>
+<div class="results-heading"><h2>Результати</h2><span id="list-status" class="list-status" role="status">Завантажуємо рецепти…</span></div>
+<div id="recipe-list" class="recipe-grid" aria-live="polite"></div>
+<div class="pagination"><button id="previous-page" class="secondary" type="button" hidden>← Назад</button><span id="page-number"></span><button id="next-page" type="button" hidden>Далі →</button></div>
+<p id="page-error" class="message error" role="alert" hidden></p>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/catalog.js') }}?v={{ request.app.version }}"></script>{% endblock %}

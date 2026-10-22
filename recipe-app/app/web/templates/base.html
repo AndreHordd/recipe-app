@@ -17,26 +17,34 @@
 <body>
   <header class="site-header">
     <div class="container header-content">
-      <a class="brand" href="/">Кулінарні рецепти</a>
-      <nav aria-label="Основна навігація">
-        <a href="/">Каталог</a>
-        <span id="guest-navigation" hidden>
-          <a href="/login">Увійти</a>
-          <a href="/register">Реєстрація</a>
+      <a class="brand" href="/" aria-label="Смакові нотатки — на головну">
+        <span class="brand-mark" aria-hidden="true">СН</span>
+        <span class="brand-copy"><strong>Смакові нотатки</strong><small>Рецепти на щодень</small></span>
+      </a>
+      <nav class="primary-nav" aria-label="Основна навігація">
+        <a class="nav-link" href="/">Головна</a>
+        <a class="nav-link" href="/recipes">Усі рецепти</a>
+        <span id="guest-navigation" class="nav-group" hidden>
+          <a class="nav-link" href="/login">Увійти</a>
+          <a class="button button-small" href="/register">Зареєструватися</a>
         </span>
-        <span id="user-navigation" hidden>
-          <a href="/my-recipes">Мої рецепти</a>
-          <a href="/collections">Колекції</a>
-          <a href="/recipes/new">Новий рецепт</a>
-          <a id="admin-navigation" href="/admin" hidden>Адміністрування</a>
-          <span id="navigation-name"></span>
+        <span id="user-navigation" class="nav-group" hidden>
+          <a class="nav-link" href="/my-recipes">Мої рецепти</a>
+          <a class="nav-link" href="/collections">Колекції</a>
+          <a class="button button-small" href="/recipes/new">+ Новий рецепт</a>
+          <a class="account-chip" href="/account"><span id="navigation-name"></span></a>
           <button id="logout-button" class="text-button" type="button">Вийти</button>
+          <a id="admin-navigation" class="nav-link" href="/admin" hidden>Адмін</a>
         </span>
       </nav>
     </div>
   </header>
   <main class="container">{% block content %}{% endblock %}</main>
-  <footer class="container">Навчальний проєкт · Система організації кулінарних рецептів</footer>
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <span>Смакові нотатки</span><span>Твоя кухня, твої правила.</span>
+    </div>
+  </footer>
   {% block scripts %}{% endblock %}
 </body>
 </html>

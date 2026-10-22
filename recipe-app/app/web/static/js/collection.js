@@ -9,7 +9,7 @@ let page = 1;
 let requestNumber = 0;
 
 function renderCollection(collection) {
-  document.title = `${collection.name} · Кулінарні рецепти`;
+  document.title = `${collection.name} · Смакові нотатки`;
   document.getElementById("collection-title").textContent = collection.name;
   form.elements.namedItem("name").value = collection.name;
   content.hidden = false;
@@ -28,6 +28,7 @@ async function loadEntries() {
     list.replaceChildren();
     for (const entry of data.items) {
       const card = entry.available ? recipeCard(entry.recipe) : element("article", "", "panel recipe-card");
+      card.classList.add("collection-recipe-card");
       if (!entry.available) card.append(element("h2", "Рецепт недоступний"));
       card.append(element("p", `Збережено ${new Date(entry.saved_at).toLocaleDateString("uk-UA")}`, "muted"));
       const remove = element("button", "Вилучити з колекції", "secondary");

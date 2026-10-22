@@ -1,26 +1,37 @@
 {% extends "base.html" %}
+{% block title %}Головна · Смакові нотатки{% endblock %}
 {% block content %}
-<section class="intro">
-  <h1>Кулінарні рецепти</h1>
-  <p>Опубліковані рецепти нашої спільноти.</p>
-</section>
-<form id="search-form" class="panel search-form" method="get">
-  <div class="form-columns">
-    <div><label for="search-mode">Шукати</label><select id="search-mode" name="mode">
-      <option value="title">За назвою</option><option value="ingredient">За інгредієнтом</option><option value="category">За категорією</option>
-    </select></div>
-    <div><label id="search-text-label" for="search-text">Назва рецепта</label><input id="search-text" name="q" maxlength="100" aria-describedby="search-hint"></div>
-    <div><label for="search-category">Категорія</label><select id="search-category" name="category_id"><option value="">Усі категорії</option></select></div>
-    <div><label for="search-tag">Тег</label><select id="search-tag" name="tag_id"><option value="">Усі теги</option></select></div>
-    <div><label for="search-time">До скількох хвилин</label><input id="search-time" name="max_cooking_time" type="number" min="1" max="1440" step="1"></div>
-    <div><label for="search-sort">Сортувати</label><select id="search-sort" name="sort"><option value="newest">Спочатку нові</option><option value="title">За назвою</option></select></div>
+<section class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">Твоя кухня починається тут</p>
+    <h1>Ідеї для смачних моментів</h1>
+    <p class="hero-lead">Знаходь улюблені рецепти, зберігай їх у колекції та ділися власними кулінарними відкриттями.</p>
+    <div class="hero-actions">
+      <a class="button" href="/recipes">Переглянути рецепти</a>
+      <a class="button button-ghost" href="/recipes/new">Додати свій рецепт</a>
+    </div>
   </div>
-  <p id="search-hint" class="muted">Порожнє поле назви показує весь каталог. Фільтри можна поєднувати.</p>
-  <div class="actions"><button id="search-submit" type="submit" disabled>Знайти</button><button id="reset-search" class="secondary" type="button">Скинути фільтри</button></div>
-</form>
-<div id="recipe-list" class="recipe-grid" aria-live="polite"></div>
-<p id="list-status" role="status">Завантажуємо рецепти…</p>
-<div class="pagination"><button id="previous-page" type="button" hidden>Назад</button><span id="page-number"></span><button id="next-page" type="button" hidden>Далі</button></div>
-<p id="page-error" class="message error" role="alert" hidden></p>
+  <div class="hero-note" aria-label="Порада дня">
+    <span class="note-label">Порада дня</span>
+    <strong>Готуй із того, що вже є вдома.</strong>
+    <span>Найкращі страви часто народжуються спонтанно.</span>
+  </div>
+</section>
+
+<section class="section-block">
+  <div class="section-heading">
+    <div><p class="eyebrow">Свіже з кухні</p><h2>Рецепти, які варто спробувати</h2></div>
+    <a class="text-link" href="/recipes">Дивитися всі →</a>
+  </div>
+  <div id="home-recommendation-list" class="recipe-grid recommendation-grid" aria-live="polite"></div>
+  <p id="home-list-status" class="list-status" role="status">Завантажуємо рекомендації…</p>
+  <p id="page-error" class="message error" role="alert" hidden></p>
+</section>
+
+<section class="feature-strip">
+  <div><span class="feature-number">01</span><strong>Шукай просто</strong><p>Фільтруй рецепти за категорією, тегами та часом.</p></div>
+  <div><span class="feature-number">02</span><strong>Зберігай своє</strong><p>Створюй колекції для сніданків, вечерь і свят.</p></div>
+  <div><span class="feature-number">03</span><strong>Ділися смаком</strong><p>Публікуй власні рецепти та надихай інших.</p></div>
+</section>
 {% endblock %}
-{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/catalog.js') }}?v={{ request.app.version }}"></script>{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', path='/js/home.js') }}?v={{ request.app.version }}"></script>{% endblock %}
